@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, filter, interval, map, Observable, of, range, timer } from 'rxjs';
+import { River } from '../model/river';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,7 @@ export class DataService {
 
   public counter = new BehaviorSubject<number>(0);
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   createInterval(): Observable<string> {
     // interval = funzione che genera un numero ogni secondo (1000 ms).
@@ -45,6 +47,53 @@ export class DataService {
     return this.counter.pipe(
       map(numb => numb ** numb)
     );
+  }
+
+  /**** ESERCIZIO API EMODNET ****/
+
+  getInfo(): Observable<River[]> {
+    const url = 'https://erddap.emodnet-physics.eu/erddap/tabledap/EP_ERD_INT_RVFL_AL_TS_NRT.csv0?time%2CRVFL%2CRVFL_QC&EP_PLATFORM_ID=%223130579%22';
+    return this.http.get(url, { responseType: "text" }).pipe(
+      map(this.parseCsv),
+      map(this.assignIcon)
+      // map(data=>this.parseCsv(data))
+    );
+  }
+
+  parseCsv(string: string): River[] {
+    const lineArray = string.split(/\r?\n/);
+    const resultArray = [];
+    for (const line of lineArray) {
+      if (line) {
+        const newLine = line.split(',');
+        const obj: River = { date: new Date(newLine[0]), quantity: parseFloat(newLine[1]) };
+        resultArray.push(obj);
+      }
+
+    }
+    return resultArray;
+  }
+
+  assignIcon(array: River[]): River[] {
+    for (let i = 0; i < array.length; i++) {
+      if (i === 0) {
+        array[i].icon = 'start'
+      }
+      else {
+        if (array[i].quantity > array[i - 1].quantity) {
+          array[i].icon = 'up';
+        }
+        else {
+          if (array[i].quantity < array[i - 1].quantity) {
+            array[i].icon = 'down';
+          }
+          else {
+            array[i].icon = 'equal'
+          }
+        }
+      }
+    }
+    return array
   }
 
 }

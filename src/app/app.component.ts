@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { River } from './model/river';
 import { DataService } from './services/data.service';
 
 @Component({
@@ -9,6 +10,8 @@ import { DataService } from './services/data.service';
 
 export class AppComponent implements OnInit {
 
+  datas: River[] = [];
+
   constructor(private dataServ: DataService) {
 
   }
@@ -18,7 +21,8 @@ export class AppComponent implements OnInit {
     // this.dataServ.createTimer().subscribe(number => console.log('timer', number));
     // this.dataServ.getObservableArray().subscribe(data => console.log(data));
     // this.dataServ.getRange().subscribe(number => console.log(number));
-    this.dataServ.getCounter().subscribe(count => console.log(count));
+    // this.dataServ.getCounter().subscribe(count => console.log(count));
+    this.dataServ.getInfo().subscribe(csv => this.datas = csv);
   }
 
   incrementCounter(): void {
