@@ -68,7 +68,10 @@ export class DataService {
     for (const line of lineArray) {
       if (line) {
         const newLine = line.split(',');
-        const obj: River = { date: new Date(newLine[0]), quantity: parseFloat(newLine[1]) };
+        const obj: River = { 
+          date: new Date(newLine[0]), 
+          quantity: parseFloat(newLine[1]) 
+        };
         resultArray.push(obj);
       }
 
