@@ -5,7 +5,7 @@
 <h2>Dati River</h2>
 <ul class="data">
     <li *ngFor="let dato of datas">
-        {{dato.date| date :'short'}} - {{dato.quantity}}
+        {{dato.date | date :'short'}} - {{dato.quantity}}
         <!-- <img *ngIf="dato.icon === 'start'" src="./assets/images/start.svg" alt="">
              <img  *ngIf="dato.icon === 'equal'" src="./assets/images/equal.svg" alt="">
              <img *ngIf="dato.icon === 'down'" src="./assets/images/down.svg" alt="">
