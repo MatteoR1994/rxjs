@@ -83,16 +83,13 @@ export class DataService {
     for (let i = 0; i < array.length; i++) {
       if (i === 0) {
         array[i].icon = 'start';
-      }
-      else {
+      } else {
         if (array[i].quantity > array[i - 1].quantity) {
           array[i].icon = 'up';
-        }
-        else {
+        } else {
           if (array[i].quantity < array[i - 1].quantity) {
             array[i].icon = 'down';
-          }
-          else {
+          } else {
             array[i].icon = 'equal';
           }
         }
