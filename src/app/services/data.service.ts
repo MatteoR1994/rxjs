@@ -9,6 +9,8 @@ import { River } from '../model/river';
 
 export class DataService {
 
+  private readonly API_URL = 'https://erddap.emodnet-physics.eu/erddap/tabledap/EP_ERD_INT_RVFL_AL_TS_NRT.csv0?time%2CRVFL%2CRVFL_QC&EP_PLATFORM_ID=%223130579%22';
+
   public counter = new BehaviorSubject<number>(0);
 
   constructor(private http: HttpClient) { }
@@ -52,8 +54,7 @@ export class DataService {
   /**** ESERCIZIO API EMODNET ****/
 
   getInfo(): Observable<River[]> {
-    const url = 'https://erddap.emodnet-physics.eu/erddap/tabledap/EP_ERD_INT_RVFL_AL_TS_NRT.csv0?time%2CRVFL%2CRVFL_QC&EP_PLATFORM_ID=%223130579%22';
-    return this.http.get(url, { responseType: "text" }).pipe(
+    return this.http.get(this.API_URL, { responseType: "text" }).pipe(
       map(this.parseCsv),
       map(this.assignIcon)
       // map(data=>this.parseCsv(data))
