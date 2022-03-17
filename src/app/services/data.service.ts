@@ -54,6 +54,7 @@ export class DataService {
   /**** ESERCIZIO API EMODNET ****/
 
   getInfo(): Observable<River[]> {
+    // return this.http.get<string>(this.API_URL, { responseType: "text" as "json" }).pipe(
     return this.http.get(this.API_URL, { responseType: "text" }).pipe(
       map(this.parseCsv),
       map(this.assignIcon)
