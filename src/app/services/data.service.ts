@@ -64,7 +64,7 @@ export class DataService {
 
   parseCsv(string: string): River[] {
     const lineArray = string.split(/\r?\n/);
-    const resultArray = [];
+    const resultArray: River[] = [];
     for (const line of lineArray) {
       if (line) {
         const newLine = line.split(',');
