@@ -77,7 +77,7 @@ export class DataService {
   assignIcon(array: River[]): River[] {
     for (let i = 0; i < array.length; i++) {
       if (i === 0) {
-        array[i].icon = 'start'
+        array[i].icon = 'start';
       }
       else {
         if (array[i].quantity > array[i - 1].quantity) {
@@ -88,12 +88,12 @@ export class DataService {
             array[i].icon = 'down';
           }
           else {
-            array[i].icon = 'equal'
+            array[i].icon = 'equal';
           }
         }
       }
     }
-    return array
+    return array;
   }
 
 }
